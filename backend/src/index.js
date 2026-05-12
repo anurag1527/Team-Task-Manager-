@@ -75,6 +75,11 @@ const connectDB = async () => {
   }
 };
 
+// Health Check Route
+app.get('/', (req, res) => {
+  res.json({ message: 'TaskFlow API is running...', status: 'healthy' });
+});
+
 // Import Routes
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
