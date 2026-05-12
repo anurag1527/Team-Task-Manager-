@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Root proxy for Railway deployment",
   "scripts": {
-    "postinstall": "npm install --prefix backend",
-    "start": "npm start --prefix backend"
+    "build": "npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend",
+    "start": "node backend/src/index.js"
   }
 }

@@ -76,7 +76,7 @@ const connectDB = async () => {
 };
 
 // Health Check Route
-app.get('/', (req, res) => {
+app.get('/api/health', (req, res) => {
   res.json({ message: 'TaskFlow API is running...', status: 'healthy' });
 });
 
@@ -100,6 +100,16 @@ app.use((err, req, res, next) => {
     stack: process.env.NODE_ENV === 'production' ? null : err.stack,
   });
 });
+
+// Serve Frontend in Production
+if (process.env.NODE_ENV === 'production') {
+  const frontendPath = path.join(__dirname, '../..', 'frontend', 'dist');
+  app.use(express.static(frontendPath));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(frontendPath, 'index.html'));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 
